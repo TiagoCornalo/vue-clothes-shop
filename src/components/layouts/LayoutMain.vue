@@ -1,12 +1,12 @@
 <template>
   <div class="layout-main">
-    <Nav />
-      <slot />
+    <SideBar />
+    <slot />
   </div>
 </template>
 
 <script setup lang="ts">
-import Nav from './Nav.vue';
+import SideBar from './SideBar.vue';
 
 </script>
 
