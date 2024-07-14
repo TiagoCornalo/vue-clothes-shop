@@ -1,52 +1,34 @@
 <template>
-  <Drawer >
-    <DrawerTrigger @click="toggleDrawer">Open</DrawerTrigger>
-    <DrawerContent :class="isOpen ? 'open' : 'closed'">
-      <DrawerHeader>
-        <DrawerTitle>Are you absolutely sure?</DrawerTitle>
-        <DrawerDescription>This action cannot be undone.</DrawerDescription>
-      </DrawerHeader>
-      <DrawerFooter>
-        <Button>Submit</Button>
-        <DrawerClose>
-          <Button variant="outline">
-            Cancel
-          </Button>
-        </DrawerClose>
-      </DrawerFooter>
-    </DrawerContent>
-  </Drawer>
+  <div class="fixed top-0 left-0 p-2 z-50">
+    <Sheet>
+      <SheetTrigger>
+        <Button variant="ghost">
+          <Menu class="text-gray-800" />
+        </Button>
+      </SheetTrigger>
+      <SheetContent side="left">
+        <SheetHeader>
+          <SheetTitle>Are you sure absolutely sure?</SheetTitle>
+          <SheetDescription>
+            This action cannot be undone. This will permanently delete your account
+            and remove your data from our servers.
+          </SheetDescription>
+        </SheetHeader>
+      </SheetContent>
+    </Sheet>
+  </div>
 </template>
 
 <script setup lang="ts">
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from '@/components';
-import { ref } from 'vue';
-
-const isOpen = ref(false);
-
-const toggleDrawer = () => {
-  isOpen.value = !isOpen.value;
-}
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+  Button,
+} from '@/components'
+import { Menu } from 'lucide-vue-next'
 
 </script>
-
-<style scoped>
-.open {
-  transform: translateY(-100%);
-}
-
-.closed {
-  transform: translateY(0);
-  transition: transform 300ms ease-in-out;
-}
-
-</style>

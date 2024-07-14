@@ -4,12 +4,21 @@
     <HomeCollectionSection />
     <Separator class="animate" />
     <HomeFeaturedSection />
+    <HomeBenefitsSection class="animate" />
+    <HomeFeaturedBannerSection class="animate" />
   </main>
 </template>
 
 
 <script setup lang="ts">
-import { HomeHeroSection, HomeCollectionSection, HomeFeaturedSection, Separator } from '@/components';
+import {
+  HomeHeroSection,
+  HomeCollectionSection,
+  HomeFeaturedSection,
+  Separator,
+  HomeBenefitsSection,
+  HomeFeaturedBannerSection
+} from '@/components';
 import { onMounted } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

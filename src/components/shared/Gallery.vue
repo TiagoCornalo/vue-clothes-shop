@@ -32,7 +32,6 @@
 
 <script setup lang="ts">
 import { Carousel, CarouselContent, CarouselItem } from '@/components'
-import { defineProps } from 'vue';
 
 interface GalleryItem {
   image: string;
@@ -54,7 +53,6 @@ defineProps({
 
 <style scoped>
 .carousel-wrapper {
-  width: 90vw;
   position: relative;
   overflow: hidden;
 
@@ -98,6 +96,10 @@ defineProps({
     object-fit: contain;
     object-position: center;
 
+  }
+
+  @media (max-width: 768px){
+    width: 90vw;
   }
 }
 </style>
