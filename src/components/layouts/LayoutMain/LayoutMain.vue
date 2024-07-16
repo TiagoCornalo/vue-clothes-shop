@@ -2,11 +2,13 @@
   <div class="layout-main">
     <SideBar />
     <slot />
+    <Footer />
   </div>
 </template>
 
 <script setup lang="ts">
 import SideBar from './SideBar.vue';
+import Footer from './Footer.vue';
 
 </script>
 

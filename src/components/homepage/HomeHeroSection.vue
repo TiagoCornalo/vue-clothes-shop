@@ -28,3 +28,7 @@ const goToNextSection = () => {
   nextSection?.scrollIntoView({ behavior: 'smooth' })
 }
 </script>
+
+<style scoped lang="scss">
+
+</style>

@@ -10,6 +10,14 @@ export default defineConfig({
     postcss: {
       plugins: [tailwind(), autoprefixer()],
     },
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+        @import "src/styles/_mixins.scss";
+        @import "src/styles/_variables.scss";
+        `
+      }
+    }
   },
   plugins: [vue()],
   resolve: {

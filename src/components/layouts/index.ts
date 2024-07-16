@@ -1,2 +1,1 @@
-export {default as LayoutMain} from './LayoutMain.vue';
-export * from './Nav.vue';
+export {default as LayoutMain} from './LayoutMain/LayoutMain.vue';
