@@ -31,7 +31,7 @@
 
 
 <script setup lang="ts">
-import { Carousel, CarouselContent, CarouselItem } from '@/components'
+import { Carousel, CarouselContent, CarouselItem } from '@/ui'
 
 interface GalleryItem {
   image: string;
@@ -98,7 +98,7 @@ defineProps({
 
   }
 
-  @media (max-width: 768px){
+  @media (max-width: 768px) {
     width: 90vw;
   }
 }

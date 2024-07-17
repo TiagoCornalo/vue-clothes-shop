@@ -8,10 +8,21 @@
       </SheetTrigger>
       <SheetContent side="left">
         <SheetHeader class="flex justify-between items-center">
-          <img src="https://res.cloudinary.com/dopgj4dbg/image/upload/v1720996579/beeb5ry9xjekbxovjwz4.png" loading="lazy" />
+          <img
+            src="https://res.cloudinary.com/dopgj4dbg/image/upload/v1720996579/beeb5ry9xjekbxovjwz4.png"
+            loading="lazy"
+          />
         </SheetHeader>
-        <Accordion type="single" collapsible class="accordion-container">
-          <AccordionItem v-for="(item) in accordionItems" :key="item.title" :value="item.title">
+        <Accordion
+          type="single"
+          collapsible
+          class="accordion-container"
+        >
+          <AccordionItem
+            v-for="(item) in accordionItems"
+            :key="item.title"
+            :value="item.title"
+          >
             <AccordionTrigger>
               <span class="accordion-item-trigger">
                 {{ item.title }}
@@ -19,7 +30,11 @@
             </AccordionTrigger>
             <AccordionContent>
               <ul>
-                <li v-for="(content, index) in item.content" :key="index" class="accordion-item-link">
+                <li
+                  v-for="(content, index) in item.content"
+                  :key="index"
+                  class="accordion-item-link"
+                >
                   <RouterLink :to="generateLink(item.title, content)">
                     {{ content }}
                   </RouterLink>
@@ -44,7 +59,7 @@ import {
   SheetHeader,
   SheetTrigger,
   Button,
-} from '@/components'
+} from '@/ui'
 import { RouterLink } from 'vue-router';
 import { Menu } from 'lucide-vue-next'
 

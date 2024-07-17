@@ -1,19 +1,18 @@
 <template>
-  <div class="layout-main">
-    <SideBar />
+  <div class="layout-container">
+    <LayoutSideBar />
     <slot />
-    <Footer />
+    <LayoutFooter />
   </div>
 </template>
 
 <script setup lang="ts">
-import SideBar from './SideBar.vue';
-import Footer from './Footer.vue';
+import { LayoutSideBar, LayoutFooter } from './components'
 
 </script>
 
 <style scoped lang="scss">
-.layout-main {
+.layout-container {
   background-color: transparent;
   display: flex;
   flex-direction: column;

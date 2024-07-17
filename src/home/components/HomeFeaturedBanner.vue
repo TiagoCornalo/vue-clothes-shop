@@ -2,7 +2,9 @@
   <FeaturedBanner image="https://res.cloudinary.com/dopgj4dbg/image/upload/v1715801362/w5ehntha7rlsu4gnkklj.jpg">
     <div class="featured-banner-content">
       <h2 class="text-sm font-bold text-gray-500 drop-shadow-md text-center uppercase">Discover our new collection</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem animi ullam tenetur veritatis obcaecati harum fugit optio perspiciatis perferendis officia voluptate, adipisci ipsa nostrum nesciunt? Vero itaque ex sapiente distinctio.</p>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem animi ullam tenetur veritatis obcaecati
+        harum fugit optio perspiciatis perferendis officia voluptate, adipisci ipsa nostrum nesciunt? Vero itaque ex
+        sapiente distinctio.</p>
       <router-link
         to="/shop"
         class="button"
@@ -16,7 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import { FeaturedBanner, Button } from '@/components';
+import { FeaturedBanner } from '@/shared';
+import { Button } from '@/ui';
 </script>
 
 <style scoped>

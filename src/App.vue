@@ -6,5 +6,5 @@
 
 
 <script setup lang="ts">
-import { LayoutMain } from '@/components';
+import LayoutMain from '@/layout/LayoutContainer.vue';
 </script>

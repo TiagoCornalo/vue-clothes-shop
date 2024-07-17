@@ -20,7 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import { Hero, Button } from '@/components'
+import { Hero } from '@/shared'
+import { Button } from '@/ui'
 import { ChevronDown } from "lucide-vue-next"
 
 const goToNextSection = () => {
@@ -29,6 +30,4 @@ const goToNextSection = () => {
 }
 </script>
 
-<style scoped lang="scss">
-
-</style>
+<style scoped lang="scss"></style>

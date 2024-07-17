@@ -2,7 +2,11 @@
   <section class="carousel-wrapper">
     <Carousel class="carousel-fullscreen">
       <CarouselContent>
-        <CarouselItem v-for="(benefit, index) in benefits" :key="index" class="carousel-item">
+        <CarouselItem
+          v-for="(benefit, index) in benefits"
+          :key="index"
+          class="carousel-item"
+        >
           <div class="carousel-item-content">
             <h2 class="text-2xl text-center">{{ benefit.title }}</h2>
             <p class="text-center">{{ benefit.description }}</p>
@@ -14,7 +18,7 @@
 </template>
 
 <script setup lang="ts">
-import { Carousel, CarouselContent, CarouselItem } from '@/components'
+import { Carousel, CarouselContent, CarouselItem } from '@/ui'
 
 const benefits = [
   {

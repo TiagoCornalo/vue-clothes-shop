@@ -1,14 +1,14 @@
 <template>
   <section class="animate collection-section">
-      <h3 class="text-md text-gray-900 py-6 drop-shadow-md">
-        Explore our collection
-      </h3>
-      <Gallery :gallery-items="galleryItems"/>
-    </section>
+    <h3 class="text-md text-gray-900 py-6 drop-shadow-md">
+      Explore our collection
+    </h3>
+    <Gallery :gallery-items="galleryItems" />
+  </section>
 </template>
 
 <script setup lang="ts">
-import { Gallery } from '@/components';
+import { Gallery } from '@/shared';
 import { ref } from 'vue';
 
 const galleryItems = ref([

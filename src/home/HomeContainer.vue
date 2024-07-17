@@ -1,24 +1,23 @@
 <template>
   <main>
-    <HomeHeroSection />
-    <HomeCollectionSection />
+    <HomeHero />
+    <HomeCollection />
     <Separator class="animate" />
-    <HomeFeaturedSection />
-    <HomeBenefitsSection class="animate" />
-    <HomeFeaturedBannerSection class="animate" />
+    <HomeFeatured />
+    <HomeBenefits class="animate" />
+    <HomeFeaturedBanner class="animate" />
   </main>
 </template>
 
 
 <script setup lang="ts">
 import {
-  HomeHeroSection,
-  HomeCollectionSection,
-  HomeFeaturedSection,
-  Separator,
-  HomeBenefitsSection,
-  HomeFeaturedBannerSection
-} from '@/components';
+  HomeHero,
+  HomeCollection,
+  HomeFeatured,
+  HomeBenefits,
+  HomeFeaturedBanner
+} from './components';
 import { onMounted } from 'vue';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';

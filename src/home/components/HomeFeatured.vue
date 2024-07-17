@@ -19,7 +19,8 @@
 </template>
 
 <script setup lang="ts">
-import { Gallery, Button } from '@/components';
+import { Button } from '@/ui';
+import { Gallery } from '@/shared';
 import { ref } from 'vue';
 
 const galleryClothesItems = ref([
