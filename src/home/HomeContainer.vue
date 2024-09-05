@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <main class="page-container">
     <HomeHero />
     <HomeCollection />
     <Separator class="animate" />
@@ -41,22 +41,3 @@ onMounted(() => {
   });
 });
 </script>
-
-<style scoped>
-main {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  width: 100%;
-}
-
-section {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 2rem;
-  height: 100%;
-  width: 100%;
-}
-</style>

@@ -6,6 +6,11 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/home/HomeContainer.vue')
+    },
+    {
+      path: '/:category/:gender/:productId',
+      component: () => import('@/product/ProductContainer.vue'),
+      props: true
     }
   ]
 })
