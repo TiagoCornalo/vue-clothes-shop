@@ -7,6 +7,7 @@
       <img
         :src="imageList[currentImage]"
         alt="Product image"
+        fetchpriority="high"
       />
     </div>
 

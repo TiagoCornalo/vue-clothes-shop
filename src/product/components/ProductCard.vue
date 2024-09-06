@@ -1,26 +1,27 @@
 <template>
   <div class="product-card">
-    <div class="product-card-header" v-bind:style="{ backgroundImage: `url(${image})` }"></div>
+    <div
+      class="product-card-header"
+      v-bind:style="{ backgroundImage: `url(${image})` }"
+    ></div>
     <div class="product-card-body">
       <h3 class="product-card-title">{{ name }}</h3>
       <p class="product-card-description">$ {{ price }}</p>
     </div>
     <div class="product-card-footer">
-      <Button variant="outline">
-        Agregar al carrito
-      </Button>
+      <Button variant="outline"> Agregar al carrito </Button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Button } from '@/ui';
+import { Button } from '@/ui'
 
 defineProps<{
-  image: string;
-  name: string;
-  price: number;
-}>();
+  image: string
+  name: string
+  price: number
+}>()
 </script>
 
 <style scoped>
