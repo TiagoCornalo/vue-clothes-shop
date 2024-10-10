@@ -11,12 +11,6 @@
       />
     </div>
 
-    <Progress
-      :model-value="getProgress"
-      class="h-[700px]"
-      orientation="vertical"
-    />
-
     <div class="image-list">
       <div
         v-for="(image, index) in imageList"
@@ -37,8 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, withDefaults, onMounted } from 'vue';
-import { Progress } from '@/ui';
+import { ref, withDefaults, onMounted } from 'vue';
 
 const props = withDefaults(defineProps<{
   imageList: string[];
@@ -59,11 +52,6 @@ const handleImageClick = (index: number) => {
   currentImage.value = index;
 };
 
-const getProgress = computed(() => {
-  if (!props.imageList.length || currentImage.value === null) return 0;
-  return ((currentImage.value + 1) / props.imageList.length) * 100;
-});
-
 onMounted(() => {
   preloadImages(props.imageList);
 });
@@ -74,7 +62,7 @@ onMounted(() => {
 .image-viewer-container {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: flex-start;
   gap: 1rem;
 }
 
@@ -92,6 +80,7 @@ onMounted(() => {
   max-height: 700px;
   object-fit: contain;
   object-position: center;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.5));
 }
 
 .image-list {

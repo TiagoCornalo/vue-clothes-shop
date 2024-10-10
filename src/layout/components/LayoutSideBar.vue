@@ -3,7 +3,7 @@
     <Sheet>
       <SheetTrigger>
         <Button variant="ghost">
-          <Menu class="menu-icon" />
+          <Menu class="menu-icon text-[#3b3a3a]" />
         </Button>
       </SheetTrigger>
       <SheetContent side="left">
@@ -82,7 +82,7 @@ const generateLink = (category: string, item: string) => {
 <style scoped lang="scss">
 .sidebar-container {
   position: fixed;
-  padding: 2rem;
+  padding: 2rem 0 0 2rem;
   top: 0;
   left: 0;
   z-index: 50;

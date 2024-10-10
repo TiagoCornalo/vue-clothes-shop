@@ -1,5 +1,8 @@
 <template>
-  <div class="product-card">
+  <router-link
+    :to="productUrl"
+    class="product-card"
+  >
     <div
       class="product-card-header"
       v-bind:style="{ backgroundImage: `url(${image})` }"
@@ -8,30 +11,34 @@
       <h3 class="product-card-title">{{ name }}</h3>
       <p class="product-card-description">$ {{ price }}</p>
     </div>
-    <div class="product-card-footer">
-      <Button variant="outline"> Agregar al carrito </Button>
-    </div>
-  </div>
+  </router-link>
 </template>
 
 <script setup lang="ts">
-import { Button } from '@/ui'
+import { computed } from 'vue';
 
-defineProps<{
+const props = defineProps<{
+  id: number
+  slug: string
   image: string
   name: string
   price: number
+  category: string
 }>()
+
+const productUrl = computed(() => `/${props.category}/${props.slug}-${props.id}`)
 </script>
 
 <style scoped>
 .product-card {
   width: 300px;
-  border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   background-color: #fff;
   cursor: pointer;
+  filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.1));
+  text-decoration: none;
+  color: inherit;
 }
 
 .product-card-header {
@@ -53,11 +60,5 @@ defineProps<{
 .product-card-description {
   font-size: 1rem;
   color: #555;
-}
-
-.product-card-footer {
-  padding: 1rem;
-  border-top: 1px solid #eaeaea;
-  text-align: center;
 }
 </style>

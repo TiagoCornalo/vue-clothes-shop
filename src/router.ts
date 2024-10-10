@@ -8,7 +8,7 @@ const router = createRouter({
       component: () => import('@/home/HomeContainer.vue')
     },
     {
-      path: '/:category/:gender/:productId',
+      path: '/:category/:productSlug(.*)-:productId(\\d+)',
       component: () => import('@/product/ProductContainer.vue'),
       props: true
     }

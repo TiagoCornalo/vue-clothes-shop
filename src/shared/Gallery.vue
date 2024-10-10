@@ -88,6 +88,11 @@ defineProps({
   &:hover .carousel-item-animate:not(:hover) {
     opacity: 0.2;
     scale: 0.9;
+
+    @media (max-width: 768px) {
+      opacity: 1;
+      scale: 1;
+    }
   }
 
   .carousel-img {

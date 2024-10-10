@@ -1,57 +1,75 @@
 <template>
-  <section v-animate class="animate">
-    <!-- Galería de imágenes con scroll -->
+  <section>
     <div class="image-scroller scroll-shadow">
       <div
         class="product-container-mobile"
         v-for="image in product.images"
         :key="image"
       >
-        <img :src="image" alt="Product image" fetchpriority="high" />
+        <img
+          :src="image"
+          alt="Product image"
+          fetchpriority="high"
+        />
       </div>
     </div>
 
-    <!-- Sección fija con botón para abrir el drawer -->
     <div class="fixed-bottom">
-      <Button @click="openDrawer = true" variant="outline">
-        Ver detalles
-      </Button>
+      <Drawer
+        position="bottom"
+        class="mobile-drawer"
+      >
+        <DrawerTrigger as-child>
+          <Button variant="outline">
+            Ver detalles
+          </Button>
+        </DrawerTrigger>
+        <DrawerContent>
+          <DrawerTitle>
+            Detalles del producto
+          </DrawerTitle>
+          <ProductDetailsCard
+            :name="product.name"
+            :price="product.price"
+            :description="product.description"
+            :sizes="product.sizes"
+            :saved="product.saved"
+            :colors="product.colors"
+            @add-to-cart="addToCart"
+          />
+        </DrawerContent>
+      </Drawer>
     </div>
-
-    <!-- Drawer que muestra más detalles del producto -->
-    <Drawer v-model="openDrawer" position="bottom" class="mobile-drawer">
-      <DrawerContent>
-        <ProductDetailsCard
-          :name="product.name"
-          :price="product.price"
-          :description="product.description"
-          :sizes="product.sizes"
-          :saved="product.saved"
-        />
-      </DrawerContent>
-    </Drawer>
   </section>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { Button, Drawer, DrawerContent } from '@/ui'; // Usando los componentes de shadcn
+import { Button, Drawer, DrawerContent, DrawerTrigger, DrawerTitle } from '@/ui';
 import ProductDetailsCard from './ProductDetailsCard.vue';
-import { Product } from '@/types'; // Definición del tipo Product
+import { Product } from '@/types';
+import { useShoppingBagStore } from '@/store';
 
-// Props recibidas
-defineProps<{
+const props = defineProps<{
   product: Product;
 }>();
 
-// Estado para abrir y cerrar el drawer
-const openDrawer = ref(false);
+const shoppingBagStore = useShoppingBagStore()
+
+const addToCart = (size: string, color: string) => {
+  shoppingBagStore.addItem({
+    ...props.product,
+    slug: props.product.slug,
+    size,
+    color,
+    quantity: 1
+  })
+}
+
 </script>
 
 <style scoped>
-/* Contenedor de la galería de imágenes con scroll */
 .image-scroller {
-  max-height: 70vh;
+  max-height: 90vh;
   overflow-y: auto;
   padding: 1rem;
 }
@@ -70,7 +88,6 @@ const openDrawer = ref(false);
   object-fit: cover;
 }
 
-/* Efecto de sombra para indicar scroll */
 .scroll-shadow {
   background: linear-gradient(white 30%, rgba(255, 255, 255, 0)),
     linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%,
@@ -83,7 +100,6 @@ const openDrawer = ref(false);
   overflow-y: auto;
 }
 
-/* Sección fija en la parte inferior con el botón */
 .fixed-bottom {
   position: fixed;
   bottom: 0;
@@ -95,13 +111,13 @@ const openDrawer = ref(false);
   display: flex;
   justify-content: center;
   z-index: 10;
+  padding-bottom: calc(env(safe-area-inset-bottom) + 1rem);
 }
 
 .fixed-bottom button {
   width: 90%;
 }
 
-/* Drawer para mobile */
 .mobile-drawer {
   max-height: 80vh;
   overflow-y: auto;

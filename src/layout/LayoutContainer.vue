@@ -1,13 +1,14 @@
 <template>
   <div class="layout-container">
     <LayoutSideBar />
+    <LayoutShoppingBag />
     <slot />
     <LayoutFooter />
   </div>
 </template>
 
 <script setup lang="ts">
-import { LayoutSideBar, LayoutFooter } from './components'
+import { LayoutSideBar, LayoutFooter, LayoutShoppingBag } from './components'
 
 </script>
 
