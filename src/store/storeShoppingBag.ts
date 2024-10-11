@@ -21,16 +21,34 @@ export const useShoppingBagStore = defineStore('shoppingBag', {
       localStorage.setItem('shoppingBagItems', JSON.stringify(this.items))
     },
     addItem(item: ShoppingBagItem) {
-      this.items.push(item)
+      const existingItem = this.items.find(
+        (i) =>
+          i.id === item.id && i.color === item.color && i.size === item.size
+      )
+      if (existingItem) {
+        existingItem.quantity += item.quantity
+      } else {
+        this.items.push(item)
+      }
       this.saveToLocalStorage()
     },
     removeItem(item: ShoppingBagItem) {
-      this.items = this.items.filter((i) => i.id !== item.id)
+      this.items = this.items.filter(
+        (i) =>
+          i.id !== item.id || i.color !== item.color || i.size !== item.size
+      )
       this.saveToLocalStorage()
     },
     clearItems() {
       this.items = []
       this.saveToLocalStorage()
+    },
+    getItemQuantity(productId: number, colorName: string, sizeName: string) {
+      const item = this.items.find(
+        (i) =>
+          i.id === productId && i.color === colorName && i.size === sizeName
+      )
+      return item ? item.quantity : 0
     }
   }
 })

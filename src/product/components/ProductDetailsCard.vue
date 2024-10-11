@@ -30,12 +30,10 @@
             variant="outline"
             class="color-button"
             :style="{ backgroundColor: color.hex }"
-            @click="selectedColor = color.name"
+            @click="$emit('update:selected-color', color.name)"
             :aria-label="color.name"
           >
-            <div
-              :class="{ 'selected-color': selectedColor === color.name }"
-            />
+            <div :class="{ 'selected-color': selectedColor === color.name }" />
           </Button>
         </div>
         <Separator />
@@ -46,7 +44,7 @@
             :key="size.size"
             variant="outline"
             :class="{ 'bg-gray-200': selectedSize === size.size }"
-            @click="selectedSize = size.size"
+            @click="$emit('update:selected-size', size.size)"
           >
             {{ size.size }}
           </Button>
@@ -57,7 +55,7 @@
         <Button
           variant="outline"
           class="add-to-cart-button"
-          @click="addToCart"
+          @click="$emit('add-to-cart')"
         >
           Agregar a la cesta
         </Button>
@@ -79,10 +77,9 @@ import {
 } from '@/ui'
 import { capitalize } from '@/utils'
 import { Bookmark } from 'lucide-vue-next'
-import { ref, computed } from 'vue'
-import { useToast } from '@/ui'
+import { Size } from '@/types'
 
-const props = defineProps<{
+defineProps<{
   name: string
   price: number
   description: string
@@ -95,57 +92,16 @@ const props = defineProps<{
     }[]
   }[]
   saved: boolean
+  selectedSize: string
+  selectedColor: string
+  availableSizes: Size[]
 }>()
 
-const selectedSize = ref('')
-const selectedColor = ref(props.colors[0].name)
-const { toast } = useToast()
-
-const emit = defineEmits<{
-  (e: "addToCart", size: string, color: string): void
-  (e: "updateStock", color: string, size: string): void
+defineEmits<{
+  (e: "update:selected-size", size: string): void
+  (e: "update:selected-color", color: string): void
+  (e: "add-to-cart"): void
 }>()
-
-const addToCart = () => {
-  if (!selectedSize.value) {
-    toast({
-      title: "Tamaño no seleccionado",
-      description: "Por favor, selecciona un tamaño antes de agregar a la cesta",
-      variant: "destructive",
-      duration: 3000,
-    });
-    return;
-  }
-
-  const selectedColorObj = props.colors.find(color => color.name === selectedColor.value);
-  const selectedSizeObj = selectedColorObj?.sizes.find(size => size.size === selectedSize.value);
-
-  if (!selectedSizeObj || selectedSizeObj.quantity === 0) {
-    toast({
-      title: "Tamaño no disponible",
-      description: "Lo sentimos, el tamaño seleccionado no está disponible en este momento",
-      variant: "destructive",
-      duration: 3000,
-    });
-    return;
-  }
-
-  emit("addToCart", selectedSize.value, selectedColor.value);
-  emit("updateStock", selectedColor.value, selectedSize.value);
-
-  toast({
-    title: "Producto agregado a la cesta",
-    description: `Se ha agregado "${props.name}" a la cesta`,
-    variant: "default",
-    duration: 3000,
-  });
-
-  selectedSize.value = "";
-}
-
-const availableSizes = computed(() => {
-  return props.colors.find(color => color.name === selectedColor.value)?.sizes.filter(size => size.quantity > 0) || [];
-})
 </script>
 
 <style scoped lang="scss">

@@ -1,7 +1,14 @@
 <template>
- <section>
-    <div v-if="isLoading" class="skeleton-container">
-      <Skeleton class="image-skeleton" v-for="i in 3" :key="i"/>
+  <section>
+    <div
+      v-if="isLoading"
+      class="skeleton-container"
+    >
+      <Skeleton
+        class="image-skeleton"
+        v-for="i in 3"
+        :key="i"
+      />
     </div>
     <template v-else-if="product">
       <div class="image-scroller scroll-shadow">
@@ -38,8 +45,12 @@
               :description="product.description"
               :saved="product.saved"
               :colors="product.colors"
+              :selected-size="selectedSize"
+              :selected-color="selectedColor"
+              :available-sizes="availableSizes"
+              @update:selected-size="selectedSize = $event"
+              @update:selected-color="selectedColor = $event"
               @add-to-cart="addToCart"
-              @update-stock="updateStock"
             />
           </DrawerContent>
         </Drawer>
@@ -49,120 +60,28 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import { Button, Drawer, DrawerContent, DrawerTrigger, DrawerTitle, Skeleton } from '@/ui';
 import ProductDetailsCard from './ProductDetailsCard.vue';
-import { Product } from '@/types';
-import { useShoppingBagStore } from '@/store';
+import { useProductDetails } from '../composables/useProductDetails'
 
 const props = defineProps<{
-  productId: string;
+  productId: string
 }>();
 
-const shoppingBagStore = useShoppingBagStore()
-const isLoading = ref(true)
-const product = ref<Product | null>(null)
-
-const fetchProduct = async (id: string): Promise<Product> => {
-  await new Promise(resolve => setTimeout(resolve, 1500));
-
-  return {
-    id: parseInt(id),
-    name: "Camisa Rayada Azul",
-    slug: "camisa-rayada-azul",
-    price: 49.99,
-    description: "Descripción del producto...",
-    images: [
-      "https://res.cloudinary.com/dopgj4dbg/image/upload/v1715633764/sbzhziwixshygpburaip.jpg",
-      "https://res.cloudinary.com/dopgj4dbg/image/upload/v1715633763/ko1l1vfxfshph1sfur31.jpg",
-      "https://res.cloudinary.com/dopgj4dbg/image/upload/v1715633763/nuwx3wir2monecizznuv.jpg"
-    ],
-    category: "camisas",
-    gender: "hombre",
-    tags: ["camisas", "hombre", "azul"],
-    isNewArrival: true,
-    isOnSale: false,
-    salePrice: 39.99,
-    colors: [
-      {
-        name: "Rojo",
-        hex: "#E8A5A6",
-        sizes: [
-          {
-            size: "S",
-            quantity: 10
-          },
-          {
-            size: "M",
-            quantity: 10
-          }
-        ]
-      },
-      {
-        name: "Azul",
-        hex: "#A7C9D4",
-        sizes: [
-          {
-            size: "S",
-            quantity: 10
-          },
-        ]
-      },
-      {
-        name: "Verde",
-        hex: "#91EC99",
-        sizes: [
-          {
-            size: "L",
-            quantity: 10
-          },
-          {
-            size: "XL",
-            quantity: 10
-          }
-        ]
-      }
-    ],
-    brand: "Nike",
-    saved: true,
-    createdAt: new Date(),
-    updatedAt: new Date()
-  };
-}
+const {
+  product,
+  selectedSize,
+  selectedColor,
+  availableSizes,
+  isLoading,
+  fetchProduct,
+  addToCart
+} = useProductDetails()
 
 onMounted(async () => {
-  try {
-    product.value = await fetchProduct(props.productId);
-  } catch (error) {
-    console.error('Error al cargar el producto:', error);
-  } finally {
-    isLoading.value = false;
-  }
+  await fetchProduct(props.productId)
 })
-
-const updateStock = (color: string, size: string) => {
-  if (product.value) {
-    const colorIndex = product.value.colors.findIndex(c => c.name === color);
-    if (colorIndex !== -1) {
-      const sizeIndex = product.value.colors[colorIndex].sizes.findIndex(s => s.size === size);
-      if (sizeIndex !== -1) {
-        product.value.colors[colorIndex].sizes[sizeIndex].quantity--;
-      }
-    }
-  }
-}
-
-const addToCart = (size: string, color: string) => {
-  if (product.value) {
-    shoppingBagStore.addItem({
-      ...product.value,
-      size,
-      color,
-      quantity: 1
-    })
-  }
-}
-
 </script>
 
 <style scoped>

@@ -16,8 +16,12 @@
           :description="product.description"
           :saved="product.saved"
           :colors="product.colors"
+          :selected-size="selectedSize"
+          :selected-color="selectedColor"
+          :available-sizes="availableSizes"
+          @update:selected-size="selectedSize = $event"
+          @update:selected-color="selectedColor = $event"
           @add-to-cart="addToCart"
-          @update-stock="updateStock"
         />
       </template>
     </div>
@@ -35,8 +39,15 @@ const props = defineProps<{
   productId: string
 }>();
 
-const { product, isLoading, fetchProduct, addToCart, updateStock } = useProductDetails()
-
+const {
+  product,
+  selectedSize,
+  selectedColor,
+  availableSizes,
+  isLoading,
+  fetchProduct,
+  addToCart
+} = useProductDetails()
 
 onMounted(async () => {
   await fetchProduct(props.productId)

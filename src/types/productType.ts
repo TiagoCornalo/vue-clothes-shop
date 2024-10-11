@@ -1,3 +1,8 @@
+export interface Size {
+  size: string
+  quantity: number
+}
+
 export interface Product {
   id: number
   slug: string
@@ -8,10 +13,7 @@ export interface Product {
   colors: {
     name: string
     hex: string
-    sizes: {
-      size: string
-      quantity: number
-    }[]
+    sizes: Size[]
   }[]
   category: string
   gender: string
@@ -31,7 +33,7 @@ export interface ShoppingBagItem {
   name: string
   price: number
   description: string
-  images: string[]
+  image: string
   size: string
   quantity: number
   color: string
