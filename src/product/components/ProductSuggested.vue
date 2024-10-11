@@ -1,9 +1,12 @@
 <template>
   <section class="suggested-container">
+    <div v-if="isLoading" class="skeleton-container">
+      <Skeleton class="product-card-skeleton" v-for="i in 6" :key="i"/>
+    </div>
+    <template v-else-if="products.length > 0">
     <h2 class="text-md">Te puede interesar</h2>
     <div class="products-container">
       <ProductCard
-        v-animate
         v-for="product in products"
         :key="product.id"
         :id="product.id"
@@ -12,15 +15,25 @@
         :name="product.name"
         :price="product.price"
         :category="product.category"
-      />
-    </div>
+          />
+      </div>
+    </template>
   </section>
 </template>
 
 <script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { ProductSuggested } from '@/types'
+import { Skeleton } from '@/ui'
 import ProductCard from './ProductCard.vue'
 
-const products = [
+const products = ref<ProductSuggested[]>([])
+const isLoading = ref(true)
+
+const fetchProducts = async () => {
+  await new Promise(resolve => setTimeout(resolve, 1500));
+
+  return [
   {
     id: 1,
     slug: 'camisa-rayada-azul',
@@ -74,8 +87,20 @@ const products = [
     name: 'Product name',
     price: 49.99,
     category: 'camisas'
+    }
+  ]
+}
+
+onMounted(async () => {
+  try {
+    products.value = await fetchProducts()
+  } catch (error) {
+    console.error(error)
+  } finally {
+    isLoading.value = false
   }
-]
+})
+
 </script>
 
 <style scoped>
@@ -86,6 +111,22 @@ const products = [
   align-items: flex-start;
   justify-content: unset;
   height: fit-content;
+}
+
+.skeleton-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+
+  @media (min-width: 768px) {
+    width: 100%;
+  }
+}
+
+.product-card-skeleton {
+  width: 300px;
+  height: 400px;
 }
 
 .products-container {

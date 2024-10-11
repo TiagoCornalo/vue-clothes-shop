@@ -12,7 +12,7 @@ export const useShoppingBagStore = defineStore('shoppingBag', {
         try {
           this.items = JSON.parse(savedItems) as ShoppingBagItem[]
         } catch (error) {
-          console.error('Error al cargar el carrito:', error)
+          console.error('Error al cargar la cesta:', error)
           this.items = []
         }
       }

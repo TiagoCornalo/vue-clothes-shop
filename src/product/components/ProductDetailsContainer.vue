@@ -4,40 +4,44 @@
     class="animate"
   >
     <div class="product-details-container">
-      <ProductPhotoGallery :image-list="product.images" />
-      <ProductDetailsCard
-        :name="product.name"
-        :price="product.price"
-        :description="product.description"
-        :sizes="product.sizes"
-        :saved="product.saved"
-        :colors="product.colors"
-        @add-to-cart="addToCart"
-      />
+      <template v-if="isLoading">
+        <Skeleton class="photo-gallery-skeleton" />
+        <Skeleton class="product-details-skeleton" />
+      </template>
+      <template v-else-if="product">
+        <ProductPhotoGallery :image-list="product.images" />
+        <ProductDetailsCard
+          :name="product.name"
+          :price="product.price"
+          :description="product.description"
+          :saved="product.saved"
+          :colors="product.colors"
+          @add-to-cart="addToCart"
+          @update-stock="updateStock"
+        />
+      </template>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import ProductPhotoGallery from './ProductPhotoGallery.vue';
 import ProductDetailsCard from './ProductDetailsCard.vue';
-import { Product } from '@/types';
-import { useShoppingBagStore } from '@/store'
+import { Skeleton } from '@/ui'
+import { useProductDetails } from '../composables/useProductDetails'
 
 const props = defineProps<{
-  product: Product
+  productId: string
 }>();
 
-const shoppingBagStore = useShoppingBagStore()
+const { product, isLoading, fetchProduct, addToCart, updateStock } = useProductDetails()
 
-const addToCart = (size: string, color: string) => {
-  shoppingBagStore.addItem({
-    ...props.product,
-    size,
-    color,
-    quantity: 1
-  })
-}
+
+onMounted(async () => {
+  await fetchProduct(props.productId)
+})
+
 </script>
 
 <style scoped lang="scss">
@@ -46,5 +50,15 @@ const addToCart = (size: string, color: string) => {
   display: flex;
   flex-direction: row;
   gap: 2rem;
+}
+
+.photo-gallery-skeleton {
+  width: 500px;
+  height: 600px;
+}
+
+.product-details-skeleton {
+  width: 400px;
+  height: 500px;
 }
 </style>
