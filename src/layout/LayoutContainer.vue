@@ -1,15 +1,20 @@
 <template>
   <div class="layout-container">
+    <LayoutAnnouncementsCarousel />
     <LayoutSideBar />
-    <LayoutShoppingBag />
+    <LayoutShoppingBag v-if="!isCheckout" />
     <slot />
     <LayoutFooter />
   </div>
 </template>
 
 <script setup lang="ts">
-import { LayoutSideBar, LayoutFooter, LayoutShoppingBag } from './components'
+import { LayoutSideBar, LayoutFooter, LayoutShoppingBag, LayoutAnnouncementsCarousel } from './components'
+import { useRoute } from 'vue-router'
+import { computed } from 'vue'
 
+const route = useRoute()
+const isCheckout = computed(() => route.path.includes('checkout'))
 </script>
 
 <style scoped lang="scss">

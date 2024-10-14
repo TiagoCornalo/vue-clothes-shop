@@ -31,7 +31,7 @@
           class="mobile-drawer"
         >
           <DrawerTrigger as-child>
-            <Button variant="outline">
+            <Button class="pink-button">
               Ver detalles
             </Button>
           </DrawerTrigger>
@@ -63,7 +63,7 @@
 import { onMounted } from 'vue';
 import { Button, Drawer, DrawerContent, DrawerTrigger, DrawerTitle, Skeleton } from '@/ui';
 import ProductDetailsCard from './ProductDetailsCard.vue';
-import { useProductDetails } from '../composables/useProductDetails'
+import { useProduct } from '../composables/useProduct'
 
 const props = defineProps<{
   productId: string
@@ -77,7 +77,7 @@ const {
   isLoading,
   fetchProduct,
   addToCart
-} = useProductDetails()
+} = useProduct()
 
 onMounted(async () => {
   await fetchProduct(props.productId)

@@ -5,12 +5,25 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: () => import('@/home/HomeContainer.vue')
+      component: () => import('@/home/HomeContainer.vue'),
+      meta: {
+        title: 'Las Toninas | Home'
+      }
     },
     {
       path: '/:category/:productSlug(.*)-:productId(\\d+)',
       component: () => import('@/product/ProductContainer.vue'),
-      props: true
+      props: true,
+      meta: {
+        title: 'Las Toninas | Product'
+      }
+    },
+    {
+      path: '/checkout',
+      component: () => import('@/checkout/CheckoutContainer.vue'),
+      meta: {
+        title: 'Las Toninas | Checkout'
+      }
     }
   ]
 })

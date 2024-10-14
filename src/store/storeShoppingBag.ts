@@ -49,6 +49,25 @@ export const useShoppingBagStore = defineStore('shoppingBag', {
           i.id === productId && i.color === colorName && i.size === sizeName
       )
       return item ? item.quantity : 0
+    },
+    updateItemQuantity(item: {
+      id: number
+      color: string
+      size: string
+      quantity: number
+    }) {
+      const existingItem = this.items.find(
+        (i) =>
+          i.id === item.id && i.color === item.color && i.size === item.size
+      )
+      if (existingItem) {
+        if (item.quantity > 0) {
+          existingItem.quantity = item.quantity
+        } else {
+          this.removeItem(existingItem)
+        }
+        this.saveToLocalStorage()
+      }
     }
   }
 })

@@ -3,7 +3,7 @@ import { useShoppingBagStore } from '@/store'
 import { useToast } from '@/ui'
 import type { Product, Size, ShoppingBagItem } from '@/types'
 
-export function useProductDetails() {
+export function useProduct() {
   const product = ref<Product | null>(null)
   const isLoading = ref(true)
   const selectedSize = ref<string>('')
@@ -36,6 +36,9 @@ export function useProductDetails() {
     colorName: string,
     sizeName: string
   ) => {
+    //TODO: cuando este el backend, la verificacion de si hay stock se debe hacerse en el backend tambien
+    //esto debido a que si se quiere agregar a la cesta por primera vez y no hay stock, se debe actualizar el stock
+    //y esto solo puede hacerse desde el backend
     const selectedColorObj = product.colors.find(
       (color) => color.name === colorName
     )
@@ -229,6 +232,7 @@ export function useProductDetails() {
     selectedColor,
     availableSizes,
     canAddToCart,
+    getAvailableStock,
     addToCart,
     fetchProduct
   }

@@ -1,5 +1,6 @@
 <template>
   <div class="shopping-bag-container">
+    <Toaster />
     <Sheet>
       <SheetTrigger>
         <Button
@@ -15,8 +16,8 @@
           </div>
         </Button>
       </SheetTrigger>
-      <SheetContent>
-        <SheetHeader>
+      <SheetContent class="overflow-y-auto">
+        <SheetHeader class="py-4">
           <SheetTitle>
             {{ itemCount > 0 ? 'Tu cesta' : 'Tu cesta está vacía' }}
           </SheetTitle>
@@ -29,13 +30,13 @@
             </template>
           </SheetDescription>
         </SheetHeader>
-        <div class="flex flex-col gap-4">
-          <ProductCard
+        <div class="products-container">
+          <ProductShoppingBagCard
             v-for="item in items"
             :key="item.id"
             :id="item.id"
             :slug="item.slug"
-            :image="item.images[0]"
+            :image="item.image"
             :name="item.name"
             :price="item.price"
             :category="item.category"
@@ -44,6 +45,16 @@
             :quantity="item.quantity"
           />
         </div>
+        <SheetFooter class="sticky bottom-[-30px] bg-white py-4">
+          <router-link
+            to="/checkout"
+            class="w-full"
+          >
+            <Button class="w-full pink-button">
+              Finalizar compra
+            </Button>
+          </router-link>
+        </SheetFooter>
       </SheetContent>
     </Sheet>
   </div>
@@ -52,18 +63,20 @@
 <script setup lang="ts">
 import {
   Sheet,
+  SheetTrigger,
   SheetContent,
   SheetHeader,
+  SheetFooter,
   SheetTitle,
   SheetDescription,
-  SheetTrigger,
   Button
 } from '@/ui'
-import { ProductCard } from '@/product/components'
+import { ProductShoppingBagCard } from '@/product/components'
 import { ShoppingBag } from 'lucide-vue-next'
 import { useShoppingBagStore } from '@/store'
 import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
+import { Toaster } from '@/ui'
 
 const shoppingBagStore = useShoppingBagStore()
 const { items } = storeToRefs(shoppingBagStore)
@@ -73,6 +86,15 @@ const itemCount = computed(() => items.value.length)
 
 <style scoped>
 .shopping-bag-container {
-  position: relative;
+  position: fixed;
+  padding: 2rem 0 0 2rem;
+  top: 0;
+  left: 0;
+  z-index: 50;
+}
+
+.products-container {
+  display: flex;
+  flex-direction: column;
 }
 </style>

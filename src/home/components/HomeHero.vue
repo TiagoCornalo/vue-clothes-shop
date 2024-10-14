@@ -3,9 +3,10 @@
     <h3 class="text-sm font-bold text-white drop-shadow-md animate text-center">
       SPRING SUMMER '24
     </h3>
-    <h1 class="text-7xl font-bold text-white drop-shadow-md py-4 animate text-center">
-      New Arrivals
-    </h1>
+    <img
+      :src="logo"
+      alt="logo"
+    />
     <p class="text-white drop-shadow-md animate text-center">
       Shop the latest collection of our hand-picked pieces.
     </p>
@@ -22,6 +23,7 @@
 <script setup lang="ts">
 import { Hero } from '@/shared'
 import { Button } from '@/ui'
+import logo from '@/assets/logo.svg'
 import { ChevronDown } from "lucide-vue-next"
 
 const goToNextSection = () => {
@@ -30,4 +32,9 @@ const goToNextSection = () => {
 }
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+img {
+  width: 500px;
+  height: auto;
+}
+</style>

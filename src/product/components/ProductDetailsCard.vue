@@ -53,8 +53,7 @@
       </CardContent>
       <CardFooter>
         <Button
-          variant="outline"
-          class="add-to-cart-button"
+          class="add-to-cart-button pink-button"
           @click="$emit('add-to-cart')"
         >
           Agregar a la cesta

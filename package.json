@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@radix-icons/vue": "^1.0.0",
-    "@vueuse/core": "^10.9.0",
+    "@vueuse/core": "^11.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel": "^8.0.4",
@@ -18,7 +18,7 @@
     "gsap": "^3.12.5",
     "lucide-vue-next": "^0.378.0",
     "pinia": "^2.1.7",
-    "radix-vue": "^1.7.4",
+    "radix-vue": "1.9.7",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "vaul-vue": "^0.2.0",

@@ -4,6 +4,10 @@
     class="animate"
   >
     <div class="product-details-container">
+      <img
+        :src="logo"
+        alt="logo"
+      />
       <template v-if="isLoading">
         <Skeleton class="photo-gallery-skeleton" />
         <Skeleton class="product-details-skeleton" />
@@ -32,8 +36,9 @@
 import { onMounted } from 'vue';
 import ProductPhotoGallery from './ProductPhotoGallery.vue';
 import ProductDetailsCard from './ProductDetailsCard.vue';
+import logo from '@/assets/logo.svg'
 import { Skeleton } from '@/ui'
-import { useProductDetails } from '../composables/useProductDetails'
+import { useProduct } from '../composables/useProduct'
 
 const props = defineProps<{
   productId: string
@@ -47,7 +52,7 @@ const {
   isLoading,
   fetchProduct,
   addToCart
-} = useProductDetails()
+} = useProduct()
 
 onMounted(async () => {
   await fetchProduct(props.productId)

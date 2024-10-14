@@ -8,10 +8,12 @@
       </SheetTrigger>
       <SheetContent side="left">
         <SheetHeader class="flex justify-between items-center">
-          <img
-            src="https://res.cloudinary.com/dopgj4dbg/image/upload/v1720996579/beeb5ry9xjekbxovjwz4.png"
-            loading="lazy"
-          />
+          <router-link to="/">
+            <img
+              :src="logo"
+              loading="lazy"
+            />
+          </router-link>
         </SheetHeader>
         <Accordion
           type="single"
@@ -62,7 +64,7 @@ import {
 } from '@/ui'
 import { RouterLink } from 'vue-router';
 import { Menu } from 'lucide-vue-next'
-
+import logo from '@/assets/logo.svg'
 const accordionItems = [
   {
     title: 'MUJER',
