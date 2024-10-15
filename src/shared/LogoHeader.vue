@@ -1,5 +1,5 @@
 <template>
-  <div class="checkout-header">
+  <div class="logo-header">
     <router-link to="/">
       <img
         :src="logo"
@@ -14,7 +14,7 @@ import logo from '@/assets/logo.svg';
 </script>
 
 <style scoped>
-.checkout-header {
+.logo-header {
   width: 100%;
   display: flex;
   align-items: center;

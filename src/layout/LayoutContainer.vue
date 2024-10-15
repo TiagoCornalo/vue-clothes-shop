@@ -2,7 +2,10 @@
   <div class="layout-container">
     <LayoutAnnouncementsCarousel />
     <LayoutSideBar />
-    <LayoutShoppingBag v-if="!isCheckout" />
+    <LayoutShoppingBag
+      v-if="shouldShowShoppingBag"
+      :show-finish-button="!isPaymentPage"
+    />
     <slot />
     <LayoutFooter />
   </div>
@@ -12,9 +15,23 @@
 import { LayoutSideBar, LayoutFooter, LayoutShoppingBag, LayoutAnnouncementsCarousel } from './components'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
+import { useMobileDetection } from '@/composables';
 
-const route = useRoute()
-const isCheckout = computed(() => route.path.includes('checkout'))
+const route = useRoute();
+const { isMobile } = useMobileDetection();
+
+const isCheckoutPage = computed(() => route.path.includes("checkout"));
+const isPaymentPage = computed(() => route.path.includes("payment"));
+
+const shouldShowShoppingBag = computed(() => {
+  if (isCheckoutPage.value && !isPaymentPage.value) {
+    return false;
+  }
+  if (isPaymentPage.value) {
+    return isMobile.value;
+  }
+  return true;
+})
 </script>
 
 <style scoped lang="scss">

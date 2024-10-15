@@ -109,7 +109,7 @@ defineEmits<{
 }
 
 .product-details-card {
-  min-width: 400px;
+  min-width: 300px;
   max-width: 500px;
 
   > :first-child {
@@ -119,6 +119,10 @@ defineEmits<{
       filter: none;
       border-radius: 0;
     }
+  }
+
+  @media (max-width: 975px) {
+    min-width: 100%;
   }
 }
 

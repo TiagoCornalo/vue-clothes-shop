@@ -66,6 +66,10 @@ onMounted(async () => {
   display: flex;
   flex-direction: row;
   gap: 2rem;
+
+  @media (max-width: 975px) {
+    flex-direction: column;
+  }
 }
 
 .photo-gallery-skeleton {

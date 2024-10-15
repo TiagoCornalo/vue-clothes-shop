@@ -49,11 +49,19 @@
           <router-link
             to="/checkout"
             class="w-full"
+            v-if="showFinishButton"
           >
             <Button class="w-full pink-button">
               Finalizar compra
             </Button>
           </router-link>
+          <div
+            class="flex justify-between"
+            v-else
+          >
+            <h2 class="total-text">Total: </h2>
+            <span class="total-price">${{ total }}</span>
+          </div>
         </SheetFooter>
       </SheetContent>
     </Sheet>
@@ -69,7 +77,7 @@ import {
   SheetFooter,
   SheetTitle,
   SheetDescription,
-  Button
+  Button,
 } from '@/ui'
 import { ProductShoppingBagCard } from '@/product/components'
 import { ShoppingBag } from 'lucide-vue-next'
@@ -78,13 +86,18 @@ import { storeToRefs } from 'pinia'
 import { computed } from 'vue'
 import { Toaster } from '@/ui'
 
+defineProps<{
+  showFinishButton: boolean
+}>()
+
 const shoppingBagStore = useShoppingBagStore()
 const { items } = storeToRefs(shoppingBagStore)
 
 const itemCount = computed(() => items.value.length)
+const total = computed(() => items.value.reduce((acc, item) => acc + item.price * item.quantity, 0))
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .shopping-bag-container {
   position: fixed;
   padding: 2rem 0 0 2rem;
@@ -96,5 +109,15 @@ const itemCount = computed(() => items.value.length)
 .products-container {
   display: flex;
   flex-direction: column;
+}
+
+.total-text {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.total-price {
+  font-size: 18px;
+  font-weight: 600;
 }
 </style>

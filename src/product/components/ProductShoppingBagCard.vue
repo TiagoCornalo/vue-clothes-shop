@@ -7,7 +7,7 @@
     <div class="product-card-body">
       <h3 class="product-card-title">{{ name }}</h3>
       <p class="product-card-description">
-        <span class="product-card-description-item">$ {{ price }}</span>
+        <span class="product-card-description-item">$ {{ price * quantity }}</span>
         <span class="product-card-description-item"> | </span>
         <span class="product-card-description-item">{{ capitalize(color) }}</span>
         <span class="product-card-description-item"> | </span>

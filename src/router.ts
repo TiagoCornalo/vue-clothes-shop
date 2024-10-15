@@ -26,7 +26,7 @@ const router = createRouter({
       }
     },
     {
-      path: '/payment/:paymentId',
+      path: '/checkout/payment',
       component: () => import('@/payment/PaymentContainer.vue'),
       meta: {
         title: 'Las Toninas | Payment'

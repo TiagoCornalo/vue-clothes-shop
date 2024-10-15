@@ -43,6 +43,7 @@
         <Button
           variant="secondary"
           class="w-full"
+          @click="goToPayment"
         >
           FINALIZAR COMPRA
         </Button>
@@ -86,6 +87,10 @@ const continueShopping = () => {
 const applyDiscount = () => {
   // TODO: Implement discount logic
   console.log('applyDiscount');
+}
+
+const goToPayment = () => {
+  router.push(`/checkout/payment`);
 }
 </script>
 
